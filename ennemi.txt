@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+int main(int argc, char *argv[])
+{
+    SDL_Surface *ecran = NULL, *imageDeFond = NULL;
+    SDL_Rect positionFond,pos;
+    SDL_Surface *walk[5], *backk[5];
+   int i=0,j=0;
+
+walk[0]=IMG_Load("1.png");
+walk[1]=IMG_Load("2.png");
+walk[2]=IMG_Load("3.png");
+walk[3]=IMG_Load("4.png");
+walk[4]=IMG_Load("5.png");
+
+
+backk[0]=IMG_Load("1_b.png");
+backk[1]=IMG_Load("2_b.png");
+backk[2]=IMG_Load("3_b.png");
+backk[3]=IMG_Load("4_b.png");
+backk[4]=IMG_Load("5_b.png");
+
+
+
+
+
+
+   int done=1,k=0;
+    positionFond.x = 0;
+    positionFond.y =0;
+    pos.x=0;
+    pos.y=0;
+
+    SDL_Init(SDL_INIT_VIDEO);
+
+    ecran = SDL_SetVideoMode(1000,390, 32, SDL_HWSURFACE);
+    SDL_WM_SetCaption("SKRRRRRRRRRRRRRRRRRRRRRRT", NULL);
+
+    /* Chargement d'une image Bitmap dans une surface */
+    imageDeFond = IMG_Load("55802425_2113073908778379_3648462241348452352_n.png");
+    /* On blitte par-dessus l'écran */
+    SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+
+    SDL_Flip(ecran);
+   while(done)
+   {
+
+j=4;
+SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+SDL_BlitSurface(walk[i], NULL, ecran, &pos);
+
+
+    SDL_Flip(ecran);
+    SDL_Delay(100);
+    pos.x+=10;
+
+i++;
+if(i>=4)
+{
+
+i=0;
+
+}
+
+if(pos.x>=400)
+{
+
+while(j>=0)
+{
+SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+SDL_BlitSurface(backk[j], NULL, ecran, &pos);
+    SDL_Flip(ecran);
+    SDL_Delay(100);
+    pos.x-=10;
+
+j++;
+
+if(j>=4)
+{
+
+
+
+    j=0;
+}
+
+
+if(pos.x==0)
+{
+
+    break;
+}
+}
+
+}
+k++;
+
+/*if(k==2)
+{
+
+
+    done=0;
+}*/
+   }
+
+
+
+
+
+    SDL_FreeSurface(imageDeFond); /* On libère la surface */
+    SDL_Quit();
+
+    return EXIT_SUCCESS;
+}

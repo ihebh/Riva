@@ -1,0 +1,89 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+
+void pause();
+
+int main(int argc, char *argv[])
+{
+    SDL_Surface *ecran = NULL, *imageDeFond = NULL,*perso = NULL ,*vie1=NULL,*vie2=NULL,*vie3= NULL     ,*gg=NULL  ;
+    SDL_Rect positionFond, positionperso ,pos1,pos2,pos3 ,go ;
+int i=0 ;
+    positionFond.x = 0;
+    positionFond.y = 0;
+    positionperso.x=0;
+    positionperso.y=0;
+    pos1.x=500;
+    pos1.y=0;
+    pos2.x=500;
+    pos2.y=0;
+    pos3.x=500;
+    pos3.y=0;
+    go.x=0;
+    go.y=0;
+    SDL_Init(SDL_INIT_VIDEO);
+
+    SDL_WM_SetIcon(IMG_Load("sdl_icone.bmp"), NULL);
+
+    ecran = SDL_SetVideoMode(1000,390,32, SDL_HWSURFACE);
+    SDL_WM_SetCaption("Chargement d'images en SDL", NULL);
+
+    imageDeFond = IMG_Load("55802425_2113073908778379_3648462241348452352_n.png");
+    SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+    perso=IMG_Load("1.png");
+    SDL_BlitSurface(perso,NULL,ecran,&positionperso);
+    SDL_Flip(ecran);
+    gg=IMG_Load("33.png");
+    vie1=IMG_Load("Untitled-1.png");
+    vie2=IMG_Load("Untitled-2.png");
+    vie3=IMG_Load("Untitled-3.png");
+    while(i<3)
+    {if(i==0)
+    {SDL_BlitSurface(vie3, NULL, ecran, &pos1);
+     SDL_Flip(ecran);
+    SDL_Delay(1500);
+     i++; }
+     if(i==1)
+     {SDL_BlitSurface(vie2, NULL, ecran, &pos2);
+     SDL_Flip(ecran);
+    SDL_Delay(1500);
+     i++; }
+     if(i==2)
+     {SDL_BlitSurface(vie1, NULL, ecran, &pos3) ;
+     SDL_Flip(ecran);
+    SDL_Delay(1500);i++;}}
+    if(i==3)
+    {
+    SDL_BlitSurface(gg, NULL, ecran, &go) ;
+     SDL_Flip(ecran);
+    SDL_Delay(1000);
+    }
+
+    SDL_Flip(ecran);
+    pause();
+
+    SDL_FreeSurface(imageDeFond);
+SDL_FreeSurface(perso);
+SDL_FreeSurface(vie1);
+  SDL_FreeSurface(vie2);SDL_FreeSurface(vie3);SDL_FreeSurface(gg);
+    SDL_Quit();
+
+    return EXIT_SUCCESS;
+}
+
+void pause()
+{
+    int continuer = 1;
+    SDL_Event event;
+
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                continuer = 0;
+        }
+    }
+}
